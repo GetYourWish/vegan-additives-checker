@@ -16,7 +16,7 @@ A free, open-source tool to check if product ingredients are vegan-friendly. Ins
 ## 🚀 Quick Start
 
 **Option 1: Use the Live Tool**
-Visit: [vegan-additives-checker.github.io](https://YOUR-USERNAME.github.io/vegan-additives-checker/) (after GitHub Pages is enabled)
+Visit: [vegan-additives-checker.github.io](https://GetYourWish.github.io/vegan-additives-checker/) (after GitHub Pages is enabled)
 
 **Option 2: Open Locally**
 1. Download `index.html`
