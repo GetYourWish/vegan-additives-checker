@@ -65,7 +65,7 @@ We'd love your help! Here's how you can contribute:
 4. Submit a pull request with sources
 
 ### Reporting Issues
-- Found an error? [Open an Issue](https://github.com/YOUR-USERNAME/vegan-additives-checker/issues)
+- Found an error? [Open an Issue](https://github.com/GetYourWish/vegan-additives-checker/issues)
 - Wrong translation? Let us know!
 
 ### Adding Languages
@@ -89,4 +89,4 @@ Open an issue on GitHub or reach out. This is a community project!
 
 ---
 
-**Made with ❤️ for the vegan community and people with food allergies.**
+**Made with 💚 for the vegan community and people with food allergies.** 
