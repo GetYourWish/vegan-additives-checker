@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vegan Additives Checker</title>
+  <style>
+    :root {
+      --bg-color: #0f0f1a;
+      --card-bg: #181825;
+      --text-color: #eee;
+      --text-muted: #a1a1aa;
+      --accent-color: #4ade80;
+      --accent-text: #16213e;
+      --border-color: #2d2d3f;
+      --code-bg: #27273a;
+      --code-border: #3f3f5f;
+      --red-header: #dc2626;
+      --orange-header: #ea580c;
+      --grey-header: #52525b;
+      --warning-border: #dc2626;
+      --warning-bg: #27273a;
+      --btn-bg: #16213e;
+      --shadow: rgba(0, 0, 0, 0.3);
+      --match-bg: rgba(74, 222, 128, 0.08);
+      --match-border: #4ade80;
+      --settings-bg: #13131f;
+      --status-green: #22c55e;
+      --status-yellow: #eab308;
+      --status-red: #ef4444;
+      --status-orange: #f97316;
+      --status-blue: #3b82f6;
+      --disclaimer-bg: #7c2d12;
+      --disclaimer-border: #ea580c;
+    }
+
+    body.theme-light {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-color: #1e293b;
+      --text-muted: #64748b;
+      --accent-color: #16a34a;
+      --accent-text: #ffffff;
+      --border-color: #e2e8f0;
+      --code-bg: #f1f5f9;
+      --code-border: #cbd5e1;
+      --red-header: #dc2626;
+      --orange-header: #ea580c;
+      --grey-header: #64748b;
+      --warning-border: #dc2626;
+      --warning-bg: #fef2f2;
+      --btn-bg: #f1f5f9;
+      --shadow: rgba(0, 0, 0, 0.1);
+      --match-bg: rgba(22, 163, 74, 0.08);
+      --match-border: #16a34a;
+      --settings-bg: #f1f5f9;
+      --status-green: #16a34a;
+      --status-yellow: #ca8a04;
+      --status-red: #dc2626;
+      --status-orange: #ea580c;
+      --status-blue: #2563eb;
+      --disclaimer-bg: #fed7aa;
+      --disclaimer-border: #ea580c;
+    }
+
+    body.theme-vegan {
+      --bg-color: #f0fdf4;
+      --card-bg: #ffffff;
+      --text-color: #14532d;
+      --text-muted: #166534;
+      --accent-color: #22c55e;
+      --accent-text: #ffffff;
+      --border-color: #bbf7d0;
+      --code-bg: #dcfce7;
+      --code-border: #86efac;
+      --red-header: #dc2626;
+      --orange-header: #f97316;
+      --grey-header: #65a30d;
+      --warning-border: #dc2626;
+      --warning-bg: #fef2f2;
+      --btn-bg: #dcfce7;
+      --shadow: rgba(34, 197, 94, 0.15);
+      --match-bg: rgba(34, 197, 94, 0.15);
+      --match-border: #16a34a;
+      --settings-bg: #dcfce7;
+      --status-green: #16a34a;
+      --status-yellow: #a16207;
+      --status-red: #dc2626;
+      --status-orange: #ea580c;
+      --status-blue: #2563eb;
+      --disclaimer-bg: #fef3c7;
+      --disclaimer-border: #f59e0b;
+    }
+
+    body.theme-navy {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-color: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent-color: #38bdf8;
+      --accent-text: #0f172a;
+      --border-color: #334155;
+      --code-bg: #334155;
+      --code-border: #475569;
+      --red-header: #ef4444;
+      --orange-header: #f97316;
+      --grey-header: #475569;
+      --warning-border: #ef4444;
+      --warning-bg: #334155;
+      --btn-bg: #1e293b;
+      --shadow: rgba(0, 0, 0, 0.4);
+      --match-bg: rgba(56, 189, 248, 0.12);
+      --match-border: #38bdf8;
+      --settings-bg: #1e293b;
+      --status-green: #22c55e;
+      --status-yellow: #eab308;
+      --status-red: #ef4444;
+      --status-orange: #fb923c;
+      --status-blue: #60a5fa;
+      --disclaimer-bg: #1e3a8a;
+      --disclaimer-border: #3b82f6;
+    }
+
+    body.theme-rose {
+      --bg-color: #fff1f2;
+      --card-bg: #ffffff;
+      --text-color: #881337;
+      --text-muted: #be123c;
+      --accent-color: #f43f5e;
+      --accent-text: #ffffff;
+      --border-color: #fecdd3;
+      --code-bg: #ffe4e6;
+      --code-border: #fda4af;
+      --red-header: #e11d48;
+      --orange-header: #fb923c;
+      --grey-header: #be123c;
+      --warning-border: #e11d48;
+      --warning-bg: #ffe4e6;
+      --btn-bg: #ffe4e6;
+      --shadow: rgba(244, 63, 94, 0.15);
+      --match-bg: rgba(244, 63, 94, 0.12);
+      --match-border: #f43f5e;
+      --settings-bg: #ffe4e6;
+      --status-green: #16a34a;
+      --status-yellow: #ca8a04;
+      --status-red: #e11d48;
+      --status-orange: #f97316;
+      --status-blue: #3b82f6;
+      --disclaimer-bg: #fce7f3;
+      --disclaimer-border: #ec4899;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Disclaimer Banner */
+    .disclaimer-banner {
+      background: var(--disclaimer-bg);
+      border: 2px solid var(--disclaimer-border);
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .disclaimer-banner strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .disclaimer-banner ul {
+      margin: 10px 0 0 20px;
+      padding: 0;
+    }
+
+    .disclaimer-banner li {
+      margin: 4px 0;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: var(--accent-color);
+      transition: color 0.3s ease;
+    }
+
+    .settings-toggle {
+      background: var(--btn-bg);
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .settings-toggle:hover {
+      background: var(--accent-color);
+      color: var(--accent-text);
+    }
+
+    .settings-panel {
+      background: var(--settings-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      display: none;
+      animation: slideDown 0.3s ease;
+    }
+
+    .settings-panel.open {
+      display: block;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .settings-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .setting-group h3 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      color: var(--text-muted);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      padding: 6px 14px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .btn:hover {
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
+
+    .btn.active {
+      background: var(--accent-color);
+      color: var(--accent-text);
+      border-color: var(--accent-color);
+    }
+
+    /* Status Banner */
+    .status-banner {
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      animation: slideDown 0.3s ease;
+    }
+
+    .status-banner.show {
+      display: flex;
+    }
+
+    .status-banner.green {
+      background: rgba(34, 197, 94, 0.15);
+      border: 2px solid var(--status-green);
+      color: var(--status-green);
+    }
+
+    .status-banner.yellow {
+      background: rgba(234, 179, 8, 0.15);
+      border: 2px solid var(--status-yellow);
+      color: var(--status-yellow);
+    }
+
+    .status-banner.red {
+      background: rgba(239, 68, 68, 0.15);
+      border: 2px solid var(--status-red);
+      color: var(--status-red);
+    }
+
+    .status-banner.orange {
+      background: rgba(249, 115, 22, 0.15);
+      border: 2px solid var(--status-orange);
+      color: var(--status-orange);
+    }
+
+    .status-banner.blue {
+      background: rgba(59, 130, 246, 0.15);
+      border: 2px solid var(--status-blue);
+      color: var(--status-blue);
+    }
+
+    .status-icon {
+      font-size: 1.5rem;
+    }
+
+    .status-text {
+      flex: 1;
+    }
+
+    .status-main {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .status-confidence {
+      font-size: 0.85rem;
+      font-weight: normal;
+      opacity: 0.85;
+      margin-top: 4px;
+    }
+
+    .status-warning {
+      font-size: 0.8rem;
+      font-weight: normal;
+      opacity: 0.8;
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    /* Compact Scanner */
+    .scanner-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .scanner-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .scanner-title {
+      font-weight: bold;
+      font-size: 1rem;
+      color: var(--accent-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 80px;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: inherit;
+      font-size: 0.95rem;
+      resize: vertical;
+      transition: all 0.3s ease;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+
+    .scanner-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .scanner-hint {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 4px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+
+    .clear-btn:hover {
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+    }
+
+    /* Categories */
+    .category {
+      margin-bottom: 30px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px var(--shadow);
+      transition: all 0.3s ease;
+    }
+
+    .category-header {
+      padding: 12px 20px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    .red .category-header {
+      background-color: var(--red-header);
+    }
+
+    .orange .category-header {
+      background-color: var(--orange-header);
+    }
+
+    .grey .category-header {
+      background-color: var(--grey-header);
+    }
+
+    .category-body {
+      background-color: var(--card-bg);
+      padding: 15px;
+      transition: background-color 0.3s ease;
+    }
+
+    .additive {
+      padding: 12px 15px;
+      margin: 0 -15px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: baseline;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .additive:last-child {
+      border-bottom: none;
+    }
+
+    .additive.matched-red {
+      background: rgba(220, 38, 38, 0.1);
+      border-left-color: var(--status-red);
+    }
+
+    .additive.matched-orange {
+      background: rgba(249, 115, 22, 0.1);
+      border-left-color: var(--status-orange);
+    }
+
+    .additive.matched-grey {
+      background: rgba(59, 130, 246, 0.1);
+      border-left-color: var(--status-blue);
+    }
+
+    .additive.dimmed {
+      opacity: 0.25;
+    }
+
+    .code {
+      background: var(--code-bg);
+      color: var(--text-color);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: "Courier New", monospace;
+      font-weight: bold;
+      min-width: 60px;
+      text-align: center;
+      border: 1px solid var(--code-border);
+      font-size: 0.9rem;
+    }
+
+    .name {
+      font-weight: bold;
+      color: var(--text-color);
+      flex: 1;
+      min-width: 150px;
+      font-size: 1rem;
+    }
+
+    .description {
+      color: var(--text-muted);
+      flex: 2;
+      min-width: 200px;
+      font-size: 0.9rem;
+    }
+
+    .warning-note {
+      background: var(--warning-bg);
+      border-left: 4px solid var(--warning-border);
+      padding: 12px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .warning-note strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .warning-note ul {
+      margin: 8px 0 0 20px;
+      padding: 0;
+    }
+
+    .warning-note li {
+      margin: 4px 0;
+    }
+
+    @media (max-width: 600px) {
+      .additive {
+        flex-direction: column;
+        gap: 4px;
+        padding: 10px 15px;
+      }
+      
+      .code {
+        align-self: flex-start;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .scanner-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .status-banner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .disclaimer-banner {
+        font-size: 0.85rem;
+      }
+    }
+
+    /* Language visibility */
+    [data-lang="en"] .fr-only,
+    [data-lang="en"] .ar-only {
+      display: none;
+    }
+
+    [data-lang="fr"] .en-only,
+    [data-lang="fr"] .ar-only {
+      display: none;
+    }
+
+    [data-lang="ar"] .en-only,
+    [data-lang="ar"] .fr-only {
+      display: none;
+    }
+
+    [data-lang="ar"] textarea {
+      direction: rtl;
+    }
+  </style>
+</head>
+<body data-lang="en" class="theme-dark">
+  <div class="container">
+    <!-- DISCLAIMER BANNER -->
+    <div class="disclaimer-banner">
+      <strong class="en-only">⚠️ IMPORTANT DISCLAIMER</strong>
+      <strong class="fr-only">⚠️ AVERTISSEMENT IMPORTANT</strong>
+      <strong class="ar-only">⚠️ تحذير مهم</strong>
+      
+      <div class="en-only">
+        This tool is a helpful reference, NOT a certification. Always verify the original product label.
+        <ul>
+          <li>May miss typos, misspellings, or uncommon ingredient names</li>
+          <li>May not recognize regional naming variations</li>
+          <li>May not include recently approved additives</li>
+          <li>OCR errors in pasted text can cause false results</li>
+          <li>When in doubt, contact the manufacturer directly</li>
+        </ul>
+      </div>
+      
+      <div class="fr-only">
+        Cet outil est une référence utile, PAS une certification. Vérifiez toujours l'étiquette du produit original.
+        <ul>
+          <li>Peut manquer les fautes de frappe, les variantes régionales ou les noms rares</li>
+          <li>Les erreurs OCR peuvent causer des résultats inexacts</li>
+          <li>Ne peut pas reconnaître tous les additifs approuvés récemment</li>
+          <li>En cas de doute, contactez directement le fabricant</li>
+        </ul>
+      </div>
+
+      <div class="ar-only">
+        هذه الأداة مرجع مفيد، وليست شهادة معتمدة. تحقق دائماً من الملصق الأصلي.
+        <ul>
+          <li>قد تفتقد الأخطاء الإملائية أو الأسماء المحلية غير الشائعة</li>
+          <li>قد تحتوي على أخطاء في النصوص المنسوخة</li>
+          <li>لا تشمل جميع المكونات المعتمدة حديثاً</li>
+          <li>في حالة الشك، تواصل مباشرة مع الشركة المصنعة</li>
+        </ul>
+      </div>
+    </div>
+
+    <header>
+      <h1 class="en-only">🐰 Vegan Additives Checker</h1>
+      <h1 class="fr-only">🐰 Vérificateur d'Additifs Vegan</h1>
+      <h1 class="ar-only">🐰 مدقق المكونات النباتية</h1>
+
+      <button class="settings-toggle" onclick="toggleSettings()">
+        <span class="en-only">⚙️ Settings</span>
+        <span class="fr-only">⚙️ Paramètres</span>
+        <span class="ar-only">⚙️ الإعدادات</span>
+      </button>
+
+      <div class="settings-panel" id="settingsPanel">
+        <div class="settings-grid">
+          <div class="setting-group">
+            <h3 class="en-only">Language</h3>
+            <h3 class="fr-only">Langue</h3>
+            <h3 class="ar-only">اللغة</h3>
+            <div class="btn-group">
+              <button class="btn" onclick="setLanguage('en')">English</button>
+              <button class="btn" onclick="setLanguage('fr')">Français</button>
+              <button class="btn" onclick="setLanguage('ar')">العربية</button>
+            </div>
+          </div>
+          <div class="setting-group">
+            <h3 class="en-only">Theme</h3>
+            <h3 class="fr-only">Thème</h3>
+            <h3 class="ar-only">المظهر</h3>
+            <div class="btn-group">
+              <button class="btn" onclick="setTheme('theme-dark')">🌙 Dark</button>
+              <button class="btn" onclick="setTheme('theme-light')">☀️ Light</button>
+              <button class="btn" onclick="setTheme('theme-vegan')">🌱 Vegan</button>
+              <button class="btn" onclick="setTheme('theme-navy')">⚓ Navy</button>
+              <button class="btn" onclick="setTheme('theme-rose')">🌸 Rose</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Status Banner -->
+    <div class="status-banner" id="statusBanner">
+      <span class="status-icon" id="statusIcon"></span>
+      <div class="status-text">
+        <div class="status-main" id="statusMain"></div>
+        <div class="status-confidence" id="statusConfidence"></div>
+        <div class="status-warning" id="statusWarning"></div>
+      </div>
+    </div>
+
+    <!-- Compact Scanner -->
+    <div class="scanner-section">
+      <div class="scanner-header">
+        <div class="scanner-title">
+          <span class="en-only">📋 Paste Ingredients</span>
+          <span class="fr-only">📋 Coller les Ingrédients</span>
+          <span class="ar-only">📋 لصق المكونات</span>
+        </div>
+      </div>
+      
+      <textarea 
+        id="ingredientsInput" 
+        placeholder="Paste ingredients here..."
+      ></textarea>
+      
+      <div class="scanner-footer">
+        <div class="scanner-hint">
+          <span class="en-only">💡 Tip: Use your phone's camera to copy text from labels</span>
+          <span class="fr-only">💡 Astuce: Utilisez l'appareil photo pour copier le texte</span>
+          <span class="ar-only">💡 تلميح: استخدم كاميرا الهاتف لنسخ النص من الملصقات</span>
+        </div>
+        <button class="clear-btn" onclick="clearScanner()">
+          <span class="en-only">Clear</span>
+          <span class="fr-only">Effacer</span>
+          <span class="ar-only">مسح</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- RED CATEGORY -->
+    <section class="category red">
+      <div class="category-header">
+        <span class="en-only">1. Definitely Animal (Avoid)</span>
+        <span class="fr-only">1. Définitivement Animal (À éviter)</span>
+        <span class="ar-only">1. حيواني بالتأكيد (تجنب)</span>
+      </div>
+      <div class="category-body">
+        <div class="additive" data-category="red" data-search="E120 E 120 E-120 carmine cochineal natural red 4 الكارمين القرمزي">
+          <span class="code">E120</span>
+          <span class="name en-only">Carmine / Cochineal / Natural Red 4</span>
+          <span class="name fr-only">Carmin / Cochenille / Rouge Naturel 4</span>
+          <span class="name ar-only">الكارمين / القرمزي / الأحمر الطبيعي 4</span>
+          <span class="description en-only">Crushed beetles. Red colouring in candies, juices, cosmetics.</span>
+          <span class="description fr-only">Coléoptères broyés. Colorant rouge dans bonbons, jus, cosmétiques.</span>
+          <span class="description ar-only">حشرات مسحوقة. ملون أحمر في الحلوى، العصائر، مستحضرات التجميل.</span>
+        </div>
+        <div class="additive" data-category="red" data-search="E441 E 441 E-441 gelatine gelatin gélatine الجيلاتين">
+          <span class="code">E441</span>
+          <span class="name en-only">Gelatine / Gelatin</span>
+          <span class="name fr-only">Gélatine</span>
+          <span class="name ar-only">الجيلاتين</span>
+          <span class="description en-only">Boiled bones, skin, connective tissue. Gummies, marshmallows.</span>
+          <span class="description fr-only">Os, peau, tissus bouillis. Bonbons gélifiés, guimauves.</span>
+          <span class="description ar-only">عظام، جلد، أنسجة مسلوقة. حلوى جيلي، مارشميلو.</span>
+        </div>
+        <div class="additive" data-category="red" data-search="E904 E 904 E-904 shellac confectioner's glaze gomme laque الشيلاك">
+          <span class="code">E904</span>
+          <span class="name en-only">Shellac / Confectioner's Glaze</span>
+          <span class="name fr-only">Gomme laque / Glaçage confiseur</span>
+          <span class="name ar-only">الشيلاك / ورنيش الحلوى</span>
+          <span class="description en-only">Lac bug secretions. Shiny coating on candy, pills, fruit.</span>
+          <span class="description fr-only">Sécrétions de punaise. Enrobage brillant bonbons, médicaments, fruits.</span>
+          <span class="description ar-only">إفرازات حشرة. طلاء لامع على الحلوى، الأدوية، الفواكه.</span>
+        </div>
+        <div class="additive" data-category="red" data-search="E901 E 901 E-901 beeswax cire d'abeille شمع العسل">
+          <span class="code">E901</span>
+          <span class="name en-only">Beeswax</span>
+          <span class="name fr-only">Cire d'abeille</span>
+          <span class="name ar-only">شمع العسل</span>
+          <span class="description en-only">Bee honeycomb wax. Candy coating, fruit wax.</span>
+          <span class="description fr-only">Cire de rayon de miel. Enrobage bonbons, cire de fruits.</span>
+          <span class="description ar-only">شمع أقراص العسل. طلاء الحلوى، شمع الفواكه.</span>
+        </div>
+        <div class="additive" data-category="red" data-search="vitamin d3 cholecalciferol vitamine d3 cholécalciférol فيتامين د3">
+          <span class="code">-</span>
+          <span class="name en-only">Vitamin D3 / Cholecalciferol</span>
+          <span class="name fr-only">Vitamine D3 / Cholécalciférol</span>
+          <span class="name ar-only">فيتامين د3 / كوليكالسيفيرول</span>
+          <span class="description en-only">Almost always from sheep's wool (lanolin). Rarely vegan unless specified.</span>
+          <span class="description fr-only">Presque toujours de laine de mouton (lanoline). Rarement végétal sauf si spécifié.</span>
+          <span class="description ar-only">تقريباً دائماً من صوف الأغنام. نادراً نباتي إلا إذا حدد.</span>
+        </div>
+        <div class="additive" data-category="red" data-search="E913 E 913 E-913 lanolin wool grease lanoline gras de laine اللانولين">
+          <span class="code">E913</span>
+          <span class="name en-only">Lanolin / Wool grease</span>
+          <span class="name fr-only">Lanoline / Gras de laine</span>
+          <span class="name ar-only">اللانولين / دهن الصوف</span>
+          <span class="description en-only">Sheep wool grease. Used in chewing gum, vitamin D3 source.</span>
+          <span class="description fr-only">Graisse de laine de mouton. Chewing-gum, source de vitamine D3.</span>
+          <span class="description ar-only">دهن صوف الأغنام. يستخدم في العلكة، مصدر فيتامين د3.</span>
+        </div>
+        <div class="additive" data-category="red" data-search="E966 E 966 E-966 lactitol لاكتيتول">
+          <span class="code">E966</span>
+          <span class="name en-only">Lactitol</span>
+          <span class="name fr-only">Lactitol</span>
+          <span class="name ar-only">لاكتيتول</span>
+          <span class="description en-only">Sugar alcohol derived from milk sugar (lactose).</span>
+          <span class="description fr-only">Alcool de sucre dérivé du lactose.</span>
+          <span class="description ar-only">كحول سكري مشتق من سكر الحليب.</span>
+        </div>
+        <div class="additive" data-category="red" data-search="E1105 E 1105 E-1105 lysozyme ليزوزيم">
+          <span class="code">E1105</span>
+          <span class="name en-only">Lysozyme</span>
+          <span class="name fr-only">Lysozyme</span>
+          <span class="name ar-only">ليزوزيم</span>
+          <span class="description en-only">Protein from egg whites. Preservative in cheeses, wine.</span>
+          <span class="description fr-only">Protéine de blanc d'œuf. Conservateur dans fromages, vin.</span>
+          <span class="description ar-only">بروتين من بياض البيض. حافظ في الجبن، النبيذ.</span>
+        </div>
+        <div class="additive" data-category="red" data-search="E920 E 920 E-920 l-cysteine cysteine cystéine سيستين">
+          <span class="code">E920</span>
+          <span class="name en-only">L-Cysteine (if not synthetic)</span>
+          <span class="name fr-only">L-Cystéine (si non synthétique)</span>
+          <span class="name ar-only">إل-سيستين (إذا لم يكن صناعياً)</span>
+          <span class="description en-only">Often from human hair, duck feathers, or hog hair. Dough conditioner.</span>
+          <span class="description fr-only">Souvent de cheveux humains, plumes de canard. Améliorant de pâte.</span>
+          <span class="description ar-only">غالباً من شعر الإنسان، ريش البط. محسن للعجين.</span>
+        </div>
+        <div class="additive" data-category="red" data-search="lard suet tallow saindoux suif gras de bœuf شحم الخنزير سمنة دهن">
+          <span class="code">-</span>
+          <span class="name en-only">Lard / Suet / Tallow</span>
+          <span class="name fr-only">Saindoux / Suif / Gras de bœuf</span>
+          <span class="name ar-only">شحم الخنزير / سمنة الحيوان / دهن البقر</span>
+          <span class="description en-only">Animal fats. Pig fat (lard) or beef/sheep fat (tallow).</span>
+          <span class="description fr-only">Graisses animales. Gras de porc ou bœuf/mouton.</span>
+          <span class="description ar-only">الدهون الحيوانية. دهن الخنزير أو البقر/الأغنام.</span>
+        </div>
+        <div class="additive" data-category="red" data-search="rennet animal rennet présure caillette منفحة">
+          <span class="code">-</span>
+          <span class="name en-only">Rennet / Animal Rennet</span>
+          <span class="name fr-only">Présure / Caillette</span>
+          <span class="name ar-only">المنفحة / المنفحة الحيوانية</span>
+          <span class="description en-only">Enzymes from calf stomachs. Used in cheese making.</span>
+          <span class="description fr-only">Enzymes d'estomac de veau. Fabrication du fromage.</span>
+          <span class="description ar-only">إنزيمات من معدة العجل. تستخدم في صنع الجبن.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORANGE CATEGORY -->
+    <section class="category orange">
+      <div class="category-header">
+        <span class="en-only">2. Sneaky Non-Vegan Names</span>
+        <span class="fr-only">2. Noms Subtils Non-Végans</span>
+        <span class="ar-only">2. أسماء غير نباتية مخفية</span>
+      </div>
+      <div class="category-body">
+        <div class="additive" data-category="orange" data-search="casein caseinate caséine caséinate الكازين">
+          <span class="code">-</span>
+          <span class="name en-only">Casein / Caseinate</span>
+          <span class="name fr-only">Caséine / Caséinate</span>
+          <span class="name ar-only">الكازين / الكازينات</span>
+          <span class="description en-only">Milk protein. Watch for 'non-dairy' labels that still contain this.</span>
+          <span class="description fr-only">Protéine de lait. Attention aux étiquettes 'sans lait'.</span>
+          <span class="description ar-only">بروتين الحليب. احذر من الملصقات 'غير ألبان'.</span>
+        </div>
+        <div class="additive" data-category="orange" data-search="whey lactose milk sugar lactosérum sucre de lait مصل اللبن لاكتوز">
+          <span class="code">-</span>
+          <span class="name en-only">Whey / Lactose / Milk Sugar</span>
+          <span class="name fr-only">Lactosérum / Lactose / Sucre de lait</span>
+          <span class="name ar-only">مصل اللبن / لاكتوز / سكر الحليب</span>
+          <span class="description en-only">Dairy by-products. Whey is the liquid left after milk curdles.</span>
+          <span class="description fr-only">Sous-produits laitiers. Le lactosérum reste après le caillage.</span>
+          <span class="description ar-only">منتجات ألبان ثانوية. مصل اللبن هو السائل المتبقي.</span>
+        </div>
+        <div class="additive" data-category="orange" data-search="isinglass ichtyocolle إيسينجلاس">
+          <span class="code">-</span>
+          <span class="name en-only">Isinglass</span>
+          <span class="name fr-only">Ichtyocolle / Isinglass</span>
+          <span class="name ar-only">إيسينجلاس</span>
+          <span class="description en-only">Fish bladder collagen. Used to clarify beer and wine.</span>
+          <span class="description fr-only">Collagène de vessie de poisson. Clarifie bière et vin.</span>
+          <span class="description ar-only">كولاجين مثانة السمك. يستخدم لتصفية البيرة والنبيذ.</span>
+        </div>
+        <div class="additive" data-category="orange" data-search="castoreum castoréum كاستوريوم">
+          <span class="code">-</span>
+          <span class="name en-only">Castoreum</span>
+          <span class="name fr-only">Castoréum</span>
+          <span class="name ar-only">كاستوريوم</span>
+          <span class="description en-only">Beaver anal gland secretion. Listed as 'natural flavouring' (rare now).</span>
+          <span class="description fr-only">Sécrétion de glande anale de castor. Listé comme 'arôme naturel'.</span>
+          <span class="description ar-only">إفراز غدة شرجية القندس. مذكور ك 'نكهة طبيعية'.</span>
+        </div>
+        <div class="additive" data-category="orange" data-search="omega-3 omega 3 dha epa fish oil algal algae أوميغا">
+          <span class="code">-</span>
+          <span class="name en-only">Omega-3 / DHA / EPA (unspecified)</span>
+          <span class="name fr-only">Oméga-3 / DHA / EPA (non précisé)</span>
+          <span class="name ar-only">أوميغا-3 / DHA / EPA (غير محدد)</span>
+          <span class="description en-only">Usually fish oil unless specified as 'algal' or 'algae-derived'.</span>
+          <span class="description fr-only">Habituellement huile de poisson sauf si 'algue'.</span>
+          <span class="description ar-only">عادة زيت السمك إلا إذا حدد 'مشتق من الطحالب'.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- GREY CATEGORY -->
+    <section class="category grey">
+      <div class="category-header">
+        <span class="en-only">3. Grey Area (Verify Source)</span>
+        <span class="fr-only">3. Zone Grise (Vérifier la source)</span>
+        <span class="ar-only">3. منطقة رمادية (تحقق من المصدر)</span>
+      </div>
+      <div class="category-body">
+        <div class="additive" data-category="grey" data-search="E322 E 322 E-322 lecithins lécithines ليسيثين">
+          <span class="code">E322</span>
+          <span class="name en-only">Lecithins</span>
+          <span class="name fr-only">Lécithines</span>
+          <span class="name ar-only">الليسيثين</span>
+          <span class="description en-only">Usually soy/sunflower (vegan) but can be egg yolk or fish.</span>
+          <span class="description fr-only">Généralement soja/tournesol mais peut être jaune d'œuf ou poisson.</span>
+          <span class="description ar-only">عادة فول الصويا/عباد الشمس لكن قد يكون صفار البيض أو السمك.</span>
+        </div>
+        <div class="additive" data-category="grey" data-search="E471 E 471 E-471 mono- diglycerides mono- diglycérides">
+          <span class="code">E471</span>
+          <span class="name en-only">Mono- and diglycerides of fatty acids</span>
+          <span class="name fr-only">Mono- et diglycérides d'acides gras</span>
+          <span class="name ar-only">المونو والديجليسريدات للأحماض الدهنية</span>
+          <span class="description en-only">Common in bread. Can be from vegetable oil or animal fats.</span>
+          <span class="description fr-only">Courant dans le pain. Peut être d'huile végétale ou graisses.</span>
+          <span class="description ar-only">شائع في الخبز. قد يكون من زيت نباتي أو دهون حيوانية.</span>
+        </div>
+        <div class="additive" data-category="grey" data-search="E422 E 422 E-422 glycerol glycerine glycérol glycérine جليسرول">
+          <span class="code">E422</span>
+          <span class="name en-only">Glycerol / Glycerine</span>
+          <span class="name fr-only">Glycérol / Glycérine</span>
+          <span class="name ar-only">الجليسرول / الغليسرين</span>
+          <span class="description en-only">Can be synthetic, plant-based, or from animal fats.</span>
+          <span class="description fr-only">Peut être synthétique, végétal ou de graisses animales.</span>
+          <span class="description ar-only">قد يكون صناعياً، نباتياً، أو من الدهون الحيوانية.</span>
+        </div>
+        <div class="additive" data-category="grey" data-search="natural flavours flavors flavouring arômes naturels نكهات طبيعية">
+          <span class="code">-</span>
+          <span class="name en-only">Natural Flavours / Flavourings</span>
+          <span class="name fr-only">Arômes naturels</span>
+          <span class="name ar-only">النكهات الطبيعية</span>
+          <span class="description en-only">Blanket term that can hide animal-derived ingredients.</span>
+          <span class="description fr-only">Terme générique pouvant masquer des ingrédients d'origine animale.</span>
+          <span class="description ar-only">مصطلح عام قد يخفي مكونات مشتقة من الحيوانات.</span>
+        </div>
+        <div class="additive" data-category="grey" data-search="E570 E 570 E-570 fatty acids acides gras أحماض دهنية">
+          <span class="code">E570</span>
+          <span class="name en-only">Fatty Acids</span>
+          <span class="name fr-only">Acides gras</span>
+          <span class="name ar-only">الأحماض الدهنية</span>
+          <span class="description en-only">Can be from plants or animal fat (tallow).</span>
+          <span class="description fr-only">Peut être de plantes ou de graisse animale (suif).</span>
+          <span class="description ar-only">قد يكون من النباتات أو الدهون الحيوانية.</span>
+        </div>
+        <div class="additive" data-category="grey" data-search="E627 E 627 E-627 disodium guanylate guanylate disodique جوانيلات">
+          <span class="code">E627</span>
+          <span class="name en-only">Disodium Guanylate</span>
+          <span class="name fr-only">Guanylate disodique</span>
+          <span class="name ar-only">ديسوديوم جوانيلات</span>
+          <span class="description en-only">Often fungal/yeast (vegan) but sometimes fish/meat derived.</span>
+          <span class="description fr-only">Souvent fongique/levure mais parfois dérivé poisson/viande.</span>
+          <span class="description ar-only">غالباً فطري/خميرة لكن أحياناً مشتق من السمك/اللحوم.</span>
+        </div>
+        <div class="additive" data-category="grey" data-search="E631 E 631 E-631 disodium inosinate inosinate disodique إينوسينات">
+          <span class="code">E631</span>
+          <span class="name en-only">Disodium Inosinate</span>
+          <span class="name fr-only">Inosinate disodique</span>
+          <span class="name ar-only">ديسوديوم إينوسينات</span>
+          <span class="description en-only">Often from meat/fish. Can be from yeast extract.</span>
+          <span class="description fr-only">Souvent de viande/poisson. Peut être d'extrait de levure.</span>
+          <span class="description ar-only">غالباً من اللحوم/السمك. قد يكون من مستخلص الخميرة.</span>
+        </div>
+        <div class="additive" data-category="grey" data-search="E635 E 635 E-635 disodium ribonucleotides ribonucléotides ريبونوكليوتيدات">
+          <span class="code">E635</span>
+          <span class="name en-only">Disodium 5'-Ribonucleotides</span>
+          <span class="name fr-only">Ribonucléotides disodiques 5'</span>
+          <span class="name ar-only">ديسوديوم ريبونوكليوتيدات 5'</span>
+          <span class="description en-only">Combination of E627 + E631. Check source.</span>
+          <span class="description fr-only">Combinaison de E627 + E631. Vérifier la source.</span>
+          <span class="description ar-only">مزيج من E627 + E631. تحقق من المصدر.</span>
+        </div>
+        <div class="additive" data-category="grey" data-search="sugar bone char filtered usa beet cane sucre betterave canne شمندر">
+          <span class="code">-</span>
+          <span class="name en-only">Sugar (in USA)</span>
+          <span class="name fr-only">Sucre (aux USA)</span>
+          <span class="name ar-only">السكر (في الولايات المتحدة)</span>
+          <span class="description en-only">Often filtered through bone char (cow bones) in the US. Beet/cane sugar elsewhere is usually fine.</span>
+          <span class="description fr-only">Souvent filtré avec du charbon d'os aux USA. Betterave/canne ailleurs OK.</span>
+          <span class="description ar-only">غالباً يصفى عبر فحم العظام في الولايات المتحدة. سكر الشمندر/القصب عادة بخير.</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="warning-note en-only">
+      <strong>⚠️ Final Reminder:</strong>
+      <ul>
+        <li>This tool is a helper, not a guarantee. Always read the original product label yourself.</li>
+        <li>Contact the manufacturer if you're unsure about any ingredient.</li>
+        <li>Different countries have different ingredient standards and additives.</li>
+        <li>When in doubt, assume the product is not vegan until verified.</li>
+      </ul>
+    </div>
+    <div class="warning-note fr-only">
+      <strong>⚠️ Dernier rappel :</strong>
+      <ul>
+        <li>Cet outil est un aide, pas une garantie. Lisez toujours l'étiquette du produit original vous-même.</li>
+        <li>Contactez le fabricant si vous avez des doutes sur un ingrédient.</li>
+        <li>Les différents pays ont des normes et additifs différents.</li>
+        <li>En cas de doute, supposez que le produit n'est pas végan jusqu'à preuve du contraire.</li>
+      </ul>
+    </div>
+    <div class="warning-note ar-only">
+      <strong>⚠️ تذكير أخير :</strong>
+      <ul>
+        <li>هذه الأداة مساعد، وليست ضمان. اقرأ ملصق المنتج الأصلي بنفسك دائماً.</li>
+        <li>اتصل بالشركة المصنعة إذا كنت غير متأكد من أي مكون.</li>
+        <li>تختلف معايير الإضافات بين الدول المختلفة.</li>
+        <li>في حالة الشك، افترض أن المنتج ليس نباتياً حتى يتم إثبات خلاف ذلك.</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    let currentLang = 'en';
+    let searchDebounceTimer;
+
+    // EXPANDED Hidden list of obvious non-vegan ingredients
+    const hiddenRedList = {
+      en: [
+        'meat', 'meats', 'beef', 'pork', 'chicken', 'lamb', 'mutton', 'veal', 'venison', 'bacon', 'ham', 
+        'sausage', 'sausages', 'salami', 'pepperoni', 'prosciutto', 'chorizo', 'steak', 'burger', 'meatball',
+        'turkey', 'duck', 'goose', 'quail', 'rabbit', 'venison', 'bison', 'buffalo', 'boar',
+        'egg', 'eggs', 'egg yolk', 'egg white', 'egg whites', 'yolk', 'yolks', 'albumin', 'albumen', 
+        'ovo', 'lecithin', 'egg powder', 'dried egg', 'egg protein', 'ovoalbumin',
+        'milk', 'dairy', 'butter', 'cheese', 'cream', 'yogurt', 'yoghurt', 'kefir', 'curd', 'whey',
+        'casein', 'caseinate', 'lactose', 'lactalbumin', 'lactoglobulin', 'milk powder', 'milk protein',
+        'skim milk', 'whole milk', 'milk fat', 'butter fat', 'buttermilk', 'cream cheese', 'cottage cheese',
+        'sour cream', 'heavy cream', 'whipping cream', 'ice cream', 'milk solids', 'nonfat milk',
+        'condensed milk', 'evaporated milk', 'dried milk', 'malted milk', 'goat milk', 'sheep milk',
+        'honey', 'bee honey', 'raw honey', 'manuka honey', 'bee pollen', 'royal jelly', 'propolis',
+        'beeswax', 'bees wax', 'beewax', 'bee wax', 'cera alba', 'honeycomb', 'honey comb',
+        'fish', 'fishes', 'salmon', 'tuna', 'cod', 'anchovy', 'anchovies', 'sardine', 'sardines', 
+        'mackerel', 'herring', 'trout', 'bass', 'halibut', 'swordfish', 'mah', 'mahi', 'tilapia',
+        'seafood', 'shellfish', 'shrimp', 'prawn', 'prawns', 'crab', 'lobster', 'oyster', 'oysters',
+        'mussel', 'mussels', 'clam', 'clams', 'scallop', 'scallops', 'octopus', 'squid', 'calamari',
+        'caviar', 'roe', 'fish oil', 'fish sauce', 'fish stock', 'fish broth', 'seafood stock',
+        'lard', 'suet', 'tallow', 'dripping', 'schmaltz', 'ghee', 'clarified butter',
+        'gelatin', 'gelatine', 'aspic', 'collagen', 'hydrolyzed collagen', 'marine collagen',
+        'chicken broth', 'beef broth', 'meat broth', 'bone broth', 'chicken stock', 'beef stock',
+        'meat stock', 'chicken fat', 'beef fat', 'duck fat', 'goose fat',
+        'fish sauce', 'oyster sauce', 'worcestershire sauce', 'worcester sauce', 'shrimp paste',
+        'prawn paste', 'fish paste', 'anchovy paste',
+        'rennet', 'animal rennet', 'calf rennet', 'enzyme', 'animal enzyme', 'lipase', 'animal lipase',
+        'pepsin', 'bone', 'bones', 'bone char', 'bone meal', 'bone marrow', 'calcium bone',
+        'shellac', 'carmine', 'cochineal', 'natural red 4', 'e120',
+        'lanolin', 'wool fat', 'wool grease', 'wool wax', 'wool alcohol',
+        'vitamin d3', 'vitamin d 3', 'cholecalciferol', 'vitamin d-3', 'D3 vitamin',
+        'isinglass', 'castoreum', 'civet', 'ambergris', 'musk', 'musk oil',
+        'lysozyme', 'cysteine', 'l-cysteine', 'l cysteine', 'cystine', 'cystein',
+        'mono and diglycerides', 'monoglycerides', 'diglycerides', 'E471', 'E 471',
+        'calcium stearate', 'magnesium stearate', 'stearic acid', 'stearate',
+        'lactitol', 'e966', 'e 966', 'lactose', 'lactulose',
+        'feather', 'feathers', 'down', 'keratin', 'animal hair', 'hog hair', 'duck feather',
+        'silk', 'sericin', 'fibroin', 'wool', 'cashmere', 'angora', 'mohair', 'alpaca',
+        'leather', 'suede', 'fur', 'hide', 'skin', 'pelt'
+      ],
+      fr: [
+        'viande', 'viandes', 'bœuf', 'boeuf', 'porc', 'poulet', 'dinde', 'canard', 'oie', 'agneau', 
+        'mouton', 'veau', 'gibier', 'bacon', 'jambon', 'saucisse', 'saucisses', 'salami', 'chorizo',
+        'steak', 'hamburger', 'boulette', 'escalope', 'côtelette', 'rôti',
+        'œuf', 'oeuf', 'œufs', 'oeufs', 'jaune d\'œuf', 'jaune d\'oeuf', 'blanc d\'œuf', 'blanc d\'oeuf',
+        'jaunes d\'œufs', 'jaunes d\'oeufs', 'blancs d\'œufs', 'blancs d\'oeufs', 'albumine', 'ovo',
+        'lait', 'produits laitiers', 'beurre', 'fromage', 'crème', 'yaourt', 'yogourt', 'yaourts', 
+        'yogourts', 'kéfir', 'petit-lait', 'lactosérum', 'caséine', 'caséinate', 'caséinates', 'lactose',
+        'poudre de lait', 'protéine de lait', 'matière grasse du lait', 'lait écrémé', 'lait entier',
+        'lait condensé', 'lait évaporé', 'crème fraîche', 'crème épaisse', 'glace', 'glaces',
+        'fromage à la crème', 'fromage blanc', 'lait de chèvre', 'lait de brebis',
+        'miel', 'pollen d\'abeille', 'pollen', 'gelée royale', 'propolis', 'cire d\'abeille', 
+        'cire d abeille', 'ciredabeille', 'rayon de miel', 'alvéole', 'alvéoles',
+        'poisson', 'poissons', 'saumon', 'thon', 'morue', 'anchois', 'sardine', 'sardines', 
+        'maquereau', 'truite', 'bar', 'cabillaud', 'colin', 'lieu', 'sole', 'hareng', 'flet',
+        'fruits de mer', 'fruit de mer', 'crustacés', 'crustacé', 'crevette', 'crevettes', 'gambas',
+        'homard', 'crabe', 'tourteau', 'étrille', 'huître', 'huîtres', 'moule', 'moules', 
+        'coquillage', 'coquillages', 'palourde', 'praire', 'coquille saint-jacques', 'noix de saint-jacques',
+        'poulpe', 'pieuvre', 'calmar', 'calmars', 'encornet', 'encornets', 'seiche', 'sèche',
+        'caviar', 'œufs de poisson', 'oeufs de poisson', 'rogue', 'sauce de poisson', 'fumet de poisson',
+        'saindoux', 'suif', 'gras de bœuf', 'gras de boeuf', 'oie grasse', 'canard gras',
+        'schmaltz', 'ghee', 'beurre clarifié',
+        'gélatine', 'gelatine', 'gélatine de porc', 'gélatine de bœuf', 'aspic', 'collagène',
+        'collagène marin', 'collagène hydrolysé',
+        'bouillon de poulet', 'bouillon de bœuf', 'bouillon de boeuf', 'bouillon de viande',
+        'fond de veau', 'fond de volaille', 'graisse de poulet', 'graisse de canard',
+        'sauce de poisson', 'nuoc mam', 'sauce d\'huître', 'sauce d\'huitre', 'sauce worcestershire',
+        'sauce anglaise', 'pâte de crevette', 'pâte de shrimp',
+        'présure', 'présure animale', 'caillette', 'enzyme animale', 'lipase animale', 'pepsine',
+        'os', 'charbon d\'os', 'farine d\'os', 'moelle osseuse',
+        'gomme laque', 'carmin', 'cochenille', 'acide carminique', 'rouge naturel 4', 'E120',
+        'lanoline', 'gras de laine', 'cire de laine', 'alcool de laine',
+        'vitamine d3', 'vitamine d 3', 'cholécalciférol', 'vitamine D3', 'D3 vitamine',
+        'ichtyocolle', 'castoréum', 'castoreum', 'musc', 'ambre gris',
+        'lysozyme', 'cystéine', 'L-cystéine', 'cystine', 'cystéine L',
+        'mono et diglycérides', 'monoglycérides', 'diglycérides', 'E471', 'E 471',
+        'stéarate de calcium', 'stéarate de magnésium', 'acide stéarique',
+        'lactitol', 'E966', 'E 966', 'lactose', 'lactulose'
+      ],
+      ar: [
+        'لحم', 'لحوم', 'لحمة', 'لحومية', 'بقر', 'بقري', 'خنزير', 'خنزيري', 'دجاج', 'دجاجة', 'دجاجي',
+        'ضأن', 'ماعز', 'عجل', 'عجول', 'غزال', 'أرنب', 'سمان', 'بط', 'إوز', 'ديك رومي', 'حبش',
+        'هام', 'بيكون', 'لانشون', 'مرتديلا', 'سجق', 'كبدة', 'قلب', 'كلى', 'لسان',
+        'بيض', 'بياض', 'صفار', 'صفار البيض', 'بياض البيض', 'ألبومين', 'ألبومن', 'بروتين البيض',
+        'حليب', 'ألبان', 'البان', 'زبدة', 'سمن', 'سمنة', 'سمن بلدي', 'جبن', 'جبنة', 'أجبان',
+        'قشطة', 'لبن', 'زبادي', 'روب', 'كفير', 'رايب', 'لبنة', 'شنينة',
+        'شرش', 'مطحلب', 'وحل', 'خثارة', 'كازين', 'كازينات', 'لاكتوز', 'سكر الحليب',
+        'بروتين الحليب', 'دسم الحليب', 'سمن حيواني', 'زبدة الحليب',
+        'عسل', 'عسل النحل', 'عسل نحل', 'عسل خام', 'حبوب اللقاح', 'غذاء ملكات النحل', 'غذاء الملكات',
+        'بروبوليس', 'صمغ النحل', 'شمع العسل', 'شمع النحل', 'شمع', 'قرص العسل', 'أقراص العسل',
+        'خلي', 'خلايا', 'شمع أبيض', 'cera alba',
+        'سمك', 'أسماك', 'سمكة', 'صيد', 'طعام بحري', 'مأكولات بحرية', 'مأكول بحري',
+        'سلمون', 'سالمون', 'تونة', 'تونا', 'ثونة', 'ثونا', 'قد', 'قاد', 'سردين', 'سردينة',
+        'ماكريل', 'ماكريل', 'هامور', 'هامور', 'بوري', 'بلطي', 'فيليه', 'شرائح سمك',
+        'جمبري', 'قريدس', 'روبيان', 'كابوريا', 'سرطان', 'كركند', 'استاكوزا', 'لوبستر',
+        'محار', 'بلح البحر', 'صدف', 'مولوسك', 'كاليماري', 'حبار', 'أخطبوط',
+        'كافيار', 'بيض سمك', 'روبيان', 'قشريات', 'زعانف', 'مرق سمك', 'صلصة سمك', 'زيت سمك',
+        'شحم', 'شحوم', 'سمنة', 'دهن', 'دهون', 'دهن حيواني', 'شحم الخنزير', 'شحم البقر',
+        'سمن غنم', 'سمن ضأن', 'سمن ماعز', 'سمن عجل',
+        'جيلاتين', 'جلاتين', 'هلام', 'كولاجين', 'كولاجين حيواني', 'كولاجين بحري',
+        'مرق', 'مرق دجاج', 'مرق لحم', 'مرق عظم', 'دهن دجاج', 'دهن بقر', 'دهن بط',
+        'صلصة سمك', 'نموك مام', 'صلصة محار', 'صلصة ورسيسترشاير', 'معجون جمبري', 'معجون سمك',
+        'منفحة', 'منفحة حيوانية', 'معدة عجل', 'إنزيم حيواني', 'لباز', 'لباز حيواني', 'ببسين',
+        'عظم', 'عظام', 'فحم عظم', 'مسحوق عظم', 'نخاع العظم',
+        'شمع العسل', 'شيلاك', 'كارمين', 'قرمزي', 'أحمر طبيعي 4', 'E120',
+        'لانولين', 'دهن صوف', 'شمع صوف', 'كحول صوفي',
+        'فيتامين د3', 'فيتامين د 3', 'كوليكالسيفيرول', 'فيتامين د٣',
+        'ايسينجلاس', 'كاستوريوم', 'مسك', 'عنبر', 'ليتروليز', 'ليزوزيم',
+        'سيستين', 'إل-سيستين', 'سيستين حيواني', 'ريبونوكلييز',
+        'مونو داي غليسرايد', 'داي غليسرايد', 'E471', 'E 471',
+        'ستيرات كالسيوم', 'ستيرات مغنيسيوم', 'حمض ستيريك',
+        'لاكتيتول', 'E966', 'E 966', 'لاكتوز', 'لاكتيولوز'
+      ]
+    };
+
+    const translations = {
+      en: {
+        placeholder: "Paste ingredients here...",
+        settings: "⚙️ Settings",
+        clear: "Clear",
+        tip: "💡 Tip: Use your phone's camera to copy text from labels",
+        status: {
+          green: { 
+            icon: "🟢", 
+            text: "No Animal Ingredients Detected", 
+            confidence: "High Confidence",
+            warning: "⚠️ Always verify the original product label before purchase"
+          },
+          yellow: { 
+            icon: "🟡", 
+            text: "Vegan (Trace Warning)", 
+            confidence: "Medium Confidence",
+            warning: "⚠️ May contain traces - safe for vegans, unsafe for allergies"
+          },
+          red: { 
+            icon: "🔴", 
+            text: "Contains Animal Ingredients", 
+            confidence: "Flagged",
+            warning: "⚠️ This product does not appear to be vegan"
+          },
+          orange: { 
+            icon: "🟠", 
+            text: "Hidden Animal Ingredients Found", 
+            confidence: "Medium Confidence",
+            warning: "⚠️ Double-check with the manufacturer"
+          },
+          blue: { 
+            icon: "🔵", 
+            text: "Inconclusive (Verify Source)", 
+            confidence: "Low Confidence",
+            warning: "⚠️ Contains ambiguous ingredients - research further"
+          }
+        }
+      },
+      fr: {
+        placeholder: "Collez les ingrédients ici...",
+        settings: "⚙️ Paramètres",
+        clear: "Effacer",
+        tip: "💡 Astuce: Utilisez l'appareil photo pour copier le texte",
+        status: {
+          green: { 
+            icon: "🟢", 
+            text: "Aucun Ingrédient Animal Détecté", 
+            confidence: "Haute Confiance",
+            warning: "⚠️ Vérifiez toujours l'étiquette originale avant d'acheter"
+          },
+          yellow: { 
+            icon: "🟡", 
+            text: "Végétalien (Traces)", 
+            confidence: "Confiance Moyenne",
+            warning: "⚠️ Peut contenir des traces - sûr pour les végétaliens, pas pour les allergies"
+          },
+          red: { 
+            icon: "🔴", 
+            text: "Contient des Ingrédients Animaux", 
+            confidence: "Signalé",
+            warning: "⚠️ Ce produit ne semble pas être végan"
+          },
+          orange: { 
+            icon: "🟠", 
+            text: "Ingrédients Animaux Cachés Détectés", 
+            confidence: "Confiance Moyenne",
+            warning: "⚠️ Vérifiez avec le fabricant"
+          },
+          blue: { 
+            icon: "🔵", 
+            text: "Inconclus (Vérifier la Source)", 
+            confidence: "Faible Confiance",
+            warning: "⚠️ Contient des ingrédients ambigus - recherchez davantage"
+          }
+        }
+      },
+      ar: {
+        placeholder: "الصق المكونات هنا...",
+        settings: "⚙️ الإعدادات",
+        clear: "مسح",
+        tip: "💡 تلميح: استخدم كاميرا الهاتف لنسخ النص من الملصقات",
+        status: {
+          green: { 
+            icon: "🟢", 
+            text: "لم يتم اكتشاف مكونات حيوانية", 
+            confidence: "ثقة عالية",
+            warning: "⚠️ تحقق دائماً من الملصق الأصلي قبل الشراء"
+          },
+          yellow: { 
+            icon: "🟡", 
+            text: "نباتي (تحذير آثار)", 
+            confidence: "ثقة متوسطة",
+            warning: "⚠️ قد يحتوي على آثار - آمن للنباتيين، غير آمن للحساسية"
+          },
+          red: { 
+            icon: "🔴", 
+            text: "يحتوي على مكونات حيوانية", 
+            confidence: "مُشار إليه",
+            warning: "⚠️ لا يبدو أن هذا المنتج نباتي"
+          },
+          orange: { 
+            icon: "🟠", 
+            text: "تم اكتشاف مكونات حيوانية مخفية", 
+            confidence: "ثقة متوسطة",
+            warning: "⚠️ تحقق مع الشركة المصنعة"
+          },
+          blue: { 
+            icon: "🔵", 
+            text: "غير حاسم (تحقق من المصدر)", 
+            confidence: "ثقة منخفضة",
+            warning: "⚠️ يحتوي على مكونات غامضة - ابحث أكثر"
+          }
+        }
+      }
+    };
+
+    // Trace warning patterns
+    const tracePatterns = {
+      en: [
+        /\bmay\s+contain\b/i,
+        /\btraces?\s+of\b/i,
+        /\bproduced\s+in\s+a\s+facility\b/i,
+        /\bmade\s+in\s+a\s+factory\b/i,
+        /\bprocessed\s+in\s+a\s+plant\b/i,
+        /\bcontains\s+traces\b/i
+      ],
+      fr: [
+        /\bpeut\s+contenir\b/i,
+        /\btraces?\s+de\b/i,
+        /\bfabriqué\s+dans\s+un\s+atelier\b/i,
+        /\bfabriqué\s+dans\s+une\s+usine\b/i,
+        /\bpourrait\s+contenir\b/i
+      ],
+      ar: [
+        /\bقد\s+يحتوي\s+على?\b/i,
+        /\bآثار\s+من\b/i,
+        /\bمصنع\s+في\s+منشأة\b/i,
+        /\bيحتوي\s+على\s+آثار\b/i
+      ]
+    };
+
+    function toggleSettings() {
+      document.getElementById('settingsPanel').classList.toggle('open');
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.body.setAttribute("data-lang", lang);
+      
+      const textarea = document.getElementById("ingredientsInput");
+      if (textarea) {
+        textarea.placeholder = translations[lang].placeholder;
+      }
+      
+      document.querySelectorAll('.setting-group .btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('onclick').includes(`'${lang}'`)) {
+          btn.classList.add('active');
+        }
+      });
+
+      const input = document.getElementById("ingredientsInput");
+      if (input && input.value.trim()) {
+        checkIngredients(input.value);
+      }
+    }
+
+    function setTheme(themeName) {
+      document.body.className = themeName;
+      
+      document.querySelectorAll('.setting-group .btn').forEach(btn => {
+        if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes('theme-')) {
+          btn.classList.remove('active');
+          if (btn.getAttribute('onclick').includes(themeName)) {
+            btn.classList.add('active');
+          }
+        }
+      });
+    }
+
+    function escapeRegex(s) {
+      return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+
+    function normalizeENumber(text) {
+      return text.replace(/([eE])\s*[-.]?\s*(\d{3,4})/g, '$1$2');
+    }
+
+    function detectTraces(text) {
+      const patterns = tracePatterns[currentLang] || tracePatterns.en;
+      return patterns.some(pattern => pattern.test(text));
+    }
+
+    function checkHiddenRedList(text) {
+      const normalizedText = ' ' + text.toLowerCase() + ' ';
+      const list = hiddenRedList[currentLang] || hiddenRedList.en;
+      
+      for (const ingredient of list) {
+        const pattern = new RegExp(`\\b${escapeRegex(ingredient.toLowerCase())}\\b`, 'i');
+        if (pattern.test(normalizedText)) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function checkIngredients(rawText) {
+      if (!rawText.trim()) {
+        clearHighlights();
+        hideStatus();
+        return 0;
+      }
+
+      const normalizedText = normalizeENumber(rawText.toLowerCase());
+      const foundInHiddenList = checkHiddenRedList(rawText);
+      
+      let foundRed = false;
+      let foundOrange = false;
+      let foundGrey = false;
+
+      document.querySelectorAll(".additive").forEach((row) => {
+        const category = row.getAttribute("data-category");
+        const searchTerms = row.getAttribute("data-search") || "";
+        const allContent = searchTerms.toLowerCase();
+        
+        let isMatch = false;
+
+        const eNumberMatches = allContent.match(/\bE\d{3,4}\b/gi) || [];
+        for (const eNum of eNumberMatches) {
+          const pattern = new RegExp(`\\b${escapeRegex(eNum)}\\b`, "i");
+          if (pattern.test(normalizedText)) {
+            isMatch = true;
+            break;
+          }
+        }
+
+        if (!isMatch) {
+          const terms = allContent.split(/\s+/).filter(t => t.length > 2);
+          for (const term of terms) {
+            if (term.length <= 4) {
+              if (new RegExp(`\\b${escapeRegex(term)}\\b`, "i").test(normalizedText)) {
+                isMatch = true;
+                break;
+              }
+            } else {
+              if (normalizedText.includes(term)) {
+                isMatch = true;
+                break;
+              }
+            }
+          }
+        }
+
+        row.classList.remove("matched-red", "matched-orange", "matched-grey", "dimmed");
+        
+        if (isMatch) {
+          if (category === "red") {
+            row.classList.add("matched-red");
+            foundRed = true;
+          } else if (category === "orange") {
+            row.classList.add("matched-orange");
+            foundOrange = true;
+          } else if (category === "grey") {
+            row.classList.add("matched-grey");
+            foundGrey = true;
+          }
+        } else {
+          row.classList.add("dimmed");
+        }
+      });
+
+      const hasTraces = detectTraces(rawText);
+      
+      if (foundInHiddenList || foundRed) {
+        showStatus('red');
+      } else if (foundOrange) {
+        showStatus('orange');
+      } else if (foundGrey) {
+        showStatus('blue');
+      } else if (hasTraces) {
+        showStatus('yellow');
+      } else {
+        showStatus('green');
+      }
+
+      return { hidden: foundInHiddenList, red: foundRed, orange: foundOrange, grey: foundGrey };
+    }
+
+    function showStatus(status) {
+      const banner = document.getElementById('statusBanner');
+      const icon = document.getElementById('statusIcon');
+      const main = document.getElementById('statusMain');
+      const confidence = document.getElementById('statusConfidence');
+      const warning = document.getElementById('statusWarning');
+      
+      const t = translations[currentLang].status[status];
+      
+      banner.className = `status-banner show ${status}`;
+      icon.textContent = t.icon;
+      main.textContent = t.text;
+      confidence.textContent = t.confidence;
+      warning.textContent = t.warning;
+    }
+
+    function hideStatus() {
+      document.getElementById('statusBanner').classList.remove('show');
+    }
+
+    function clearHighlights() {
+      document.querySelectorAll(".additive").forEach((row) => {
+        row.classList.remove("matched-red", "matched-orange", "matched-grey", "dimmed");
+      });
+    }
+
+    function clearScanner() {
+      const input = document.getElementById("ingredientsInput");
+      if (input) {
+        input.value = "";
+        clearHighlights();
+        hideStatus();
+        input.focus();
+      }
+    }
+
+    function handleInput(e) {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        checkIngredients(e.target.value);
+      }, 150);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const input = document.getElementById("ingredientsInput");
+      if (input) {
+        input.addEventListener("input", handleInput);
+      }
+      
+      setLanguage("en");
+      setTheme("theme-dark");
+    });
+  </script>
+</body>
+</html>
