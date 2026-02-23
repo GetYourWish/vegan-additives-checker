@@ -1,4 +1,3 @@
-````markdown
 # 🐰 Vegan Additives Checker
 
 A free, open-source tool to check if product ingredients are vegan-friendly. Instantly identify animal-derived additives, E-numbers, and hidden non-vegan ingredients.
@@ -163,7 +162,7 @@ MIT License — Use, modify, and share freely. See [LICENSE](LICENSE) for detail
 
 ## 📜 Changelog
 
-### v1.2.0 — Current
+### v1.1.0 — Current
 - Added 15+ new additives (E428, E542, E640, E442, E430-436, E252, E415, E270, E325-327, E470, Chitosan)
 - Implemented Copy & Share functionality
 - Full ARIA accessibility support
@@ -198,4 +197,3 @@ Have an idea? [Open a discussion](../../discussions) or submit a pull request!
 ---
 
 Made with 💚 for the vegan community
-````
