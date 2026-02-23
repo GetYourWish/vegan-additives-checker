@@ -28,7 +28,7 @@ A free, open-source tool to check if product ingredients are vegan-friendly. Ins
 
 ## 🚀 Quick Start
 
-1. Download `index.html`
+1. Download the latest `.html` file from the releases section.
 2. Open it in any web browser
 3. Paste an ingredients list
 4. Review flagged items
@@ -162,7 +162,7 @@ MIT License — Use, modify, and share freely. See [LICENSE](LICENSE) for detail
 
 ## 📜 Changelog
 
-### v1.1.0 — Current
+### v1.2.0 — Current
 - Added 15+ new additives (E428, E542, E640, E442, E430-436, E252, E415, E270, E325-327, E470, Chitosan)
 - Implemented Copy & Share functionality
 - Full ARIA accessibility support
